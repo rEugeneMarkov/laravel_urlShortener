@@ -21,8 +21,7 @@ class LinkFactory extends Factory
     {
         $data['link'] = fake()->url();
 
-        $title = new LinkService();
-        $data['title'] = $title->getTitle($data['link']);
+        $data['title'] = LinkService::getTitle($data['link']);
 
         $data['back_halve'] = Str::random(5);
         $data['user_id'] = User::get()->random()->id;

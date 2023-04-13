@@ -21,18 +21,28 @@
             </a>
 
             <ul class="nav nav-pills">
-                <li class="nav-item"><a href="{{ route('welcome') }}"
-                        class="nav-link {{ Route::currentRouteName() == 'welcome' ? 'active' : '' }}"
-                        aria-current="page">Home</a></li>
-                <li class="nav-item"><a href="{{ route('login') }}" class="nav-link">Log in</a></li>
-                <li class="nav-item"><a href="{{ route('register') }}" class="nav-link">Register</a></li>
-                <li class="nav-item"><a href="{{ route('personal.index') }}"
-                        class="nav-link {{ Route::currentRouteName() == 'personal.website.index' ? 'active' : '' }}">Personal</a>
+                <li class="nav-item">
+                    <a href="{{ route('welcome') }}"
+                        class="nav-link {{ Route::currentRouteName() == 'welcome' ? 'active' : '' }}">Home</a>
                 </li>
+                @guest
+                    <li class="nav-item">
+                        <a href="{{ route('login') }}"
+                            class="nav-link {{ url()->current() == route('login') ? 'active' : '' }}">Log in</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('register') }}"
+                            class="nav-link {{ url()->current() == route('register') ? 'active' : '' }}">Register</a>
+                    </li>
+                @else
+                    <li class="nav-item"><a href="{{ route('personal.index') }}"
+                            class="nav-link {{ url()->current() == route('personal.index') ? 'active' : '' }}">Personal</a>
+                    </li>
+                @endguest
             </ul>
         </header>
     </div>
-    <div>
+    <div class="container">
         @yield('content')
     </div>
 </body>
