@@ -3,6 +3,6 @@
 @section('content')
     <div class="container-fluid">
 
-        Comming Soon
+        <h1>{{ __('messages.welcome') }}</h1>
     </div>
 @endsection
