@@ -20,7 +20,7 @@ class DatabaseSeeder extends Seeder
             'email' => 'admin@admin.com',
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
         ]);
-        User::factory(5)->create();
-        Link::factory(100)->create();
+        //User::factory(5)->create();
+        Link::factory(10)->create();
     }
 }

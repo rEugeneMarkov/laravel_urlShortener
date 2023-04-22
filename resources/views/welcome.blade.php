@@ -2,6 +2,6 @@
 
 @section('content')
     <div class="container text-center">
-        Comming Soon
+        <h1>{{ __('messages.welcome') }}</h1>
     </div>
 @endsection

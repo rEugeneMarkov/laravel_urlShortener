@@ -4,9 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Link;
 use Illuminate\View\View;
-use Illuminate\Http\Request;
-use App\Http\Services\LinkService;
+use App\Services\LinkService;
 use Illuminate\Http\RedirectResponse;
+use App\Http\Requests\LinkStoreRequest;
+use App\Http\Requests\LinkUpdateRequest;
 
 class LinkController extends Controller
 {
@@ -36,7 +37,7 @@ class LinkController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request): RedirectResponse
+    public function store(LinkStoreRequest $request, string $locale): RedirectResponse
     {
         $data = $this->service->store($request);
         Link::firstOrCreate($data);
@@ -47,7 +48,7 @@ class LinkController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Link $link): View
+    public function show(string $locale, Link $link): View
     {
         return view('personal.link.show', compact('link'));
     }
@@ -55,7 +56,7 @@ class LinkController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Link $link): View
+    public function edit(string $locale, Link $link): View
     {
         return view('personal.link.edit', compact('link'));
     }
@@ -63,12 +64,9 @@ class LinkController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Link $link): View
+    public function update(LinkUpdateRequest $request, string $locale, Link $link): View
     {
-        $data = [
-            'title' => $request->title,
-            'link' => $request->link,
-        ];
+        $data = $request->validated();
         $link->update($data);
         return view('personal.link.show', compact('link'));
     }
@@ -76,7 +74,7 @@ class LinkController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Link $link): RedirectResponse
+    public function destroy(string $locale, Link $link): RedirectResponse
     {
         $link->delete();
         return redirect()->route('personal.link.index');

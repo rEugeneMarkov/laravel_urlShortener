@@ -11,7 +11,7 @@
                         <input type="text" class="form-control" name="link" placeholder="Your link"
                             value="{{ old('link') }}">
                         @error('link')
-                            <div class="text-danger">Is required</div>
+                            <div class="text-danger">{{ $message }}</div>
                         @enderror
                     </div>
                     <div class="form-group mt-3">
