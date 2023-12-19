@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('links', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id');
-            $table-> string('title');
+            $table->string('title')->nullable();
             $table->string('link');
             $table->string('back_halve')->unique();
             $table->bigInteger('transitions')->default(0);

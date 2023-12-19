@@ -7,7 +7,7 @@
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <h1 class="h3 mb-0 text-gray-800">Link Shortener</h1>
             <a href="{{ route('personal.link.create') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-                    class="fas fa-plus fa-sm text-white-50"></i> Add Link</a>
+                    class="fas fa-plus fa-sm text-white-50"></i> {{ __('personal.add.link') }}</a>
         </div>
         <!-- Content Row -->
 
@@ -51,11 +51,11 @@
                                         </thead>
                                         <tfoot>
                                             <tr>
-                                                <th rowspan="1" colspan="1">Title</th>
+                                                <th class="text-center col-sm-3" rowspan="1" colspan="1">Title</th>
                                                 <th rowspan="1" colspan="1">Link</th>
-                                                <th rowspan="1" colspan="1">Back halve</th>
-                                                <th rowspan="1" colspan="1">Short Link</th>
-                                                <th rowspan="1" colspan="1">Transitions</th>
+                                                <th class="col-sm-1" rowspan="1" colspan="1">Back halve</th>
+                                                <th class="col-sm-1" rowspan="1" colspan="1">Short Link</th>
+                                                <th class="col-sm-1" rowspan="1" colspan="1">Transitions</th>
                                                 <th class="text-center col-sm-1" rowspan="1" colspan="3">Actions</th>
                                             </tr>
                                         </tfoot>
@@ -66,7 +66,8 @@
                                                     <td>{{ $link->link }}</td>
                                                     <td>{{ $link->back_halve }}</td>
                                                     <td>
-                                                        <a href="{{ env('APP_URL') . '/' .  $link->back_halve }}" target="_blank">
+                                                        <a href="{{ env('APP_URL') . '/' . $link->back_halve }}"
+                                                            target="_blank">
                                                             {{ env('APP_URL') . '/' . $link->back_halve }}
                                                         </a>
                                                     </td>
@@ -75,12 +76,12 @@
 
                                                         <a class="btn btn-primary btn-sm"
                                                             href="{{ route('personal.link.show', $link->id) }}"
-                                                            role="button">Show</a>
+                                                            role="button">{{ __('personal.show') }}</a>
                                                     </td>
                                                     <td class="text-center">
                                                         <a class="btn btn-success btn-sm"
                                                             href="{{ route('personal.link.edit', $link->id) }}"
-                                                            role="button">Edit</a>
+                                                            role="button">{{ __('personal.edit') }}</a>
                                                     </td>
                                                     <td class="text-center">
                                                         <form action="{{ route('personal.link.destroy', $link->id) }}"
@@ -88,20 +89,11 @@
                                                             @csrf
                                                             @method('DELETE')
                                                             <button type="submit"
-                                                                class="btn btn-danger btn-sm">Delete</button>
+                                                                class="btn btn-danger btn-sm">{{ __('personal.delete') }}</button>
                                                         </form>
                                                     </td>
                                                 </tr>
                                             @endforeach
-
-                                            {{-- <tr class="even">
-                                                <td class="sorting_1">Angelica Ramos</td>
-                                                <td>Chief Executive Officer (CEO)</td>
-                                                <td>London</td>
-                                                <td>47</td>
-                                                <td>2009/10/09</td>
-                                                <td>$1,200,000</td>
-                                            </tr> --}}
                                         </tbody>
                                     </table>
                                 </div>

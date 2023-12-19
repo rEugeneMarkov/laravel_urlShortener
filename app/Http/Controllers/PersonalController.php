@@ -14,6 +14,7 @@ class PersonalController extends Controller
     public function profile(): View
     {
         $user = auth()->user();
+
         return view('personal.main.profile', compact('user'));
     }
 }

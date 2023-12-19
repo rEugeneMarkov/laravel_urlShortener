@@ -52,13 +52,20 @@
                         <li class="nav-item no-arrow mx-1 ">
                             <a class="nav-link" href="{{ route('welcome') }}" role="button"
                                 aria-haspopup="true" aria-expanded="false">
-                                Go to main page
+                                {{ __('auth.home') }}
                             </a>
-                            {{-- <a href="{{ route('welcome') }}" id="messagesButton"
-                                class=" nav-link dropdown-toggle d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-                                 Go to main page</a> --}}
                         </li>
-
+                        <li class="nav-item no-arrow mx-1">
+                            <form class="nav-link" action="{{ route('locale.update') }}" method="POST">
+                                @csrf
+                                <select class="form-select form-select" name="locale" onchange="this.form.submit()">
+                                    <option value="en" {{ app()->getLocale() == 'en' ? 'selected' : '' }}>English</option>
+                                    <option value="ru" {{ app()->getLocale() == 'ru' ? 'selected' : '' }}>Русский</option>
+                                </select>
+                                {{-- <input type="hidden" name="route" value="{{ Route::current() }}"> --}}
+                            </form>
+                        </li>
+                       
                         <div class="topbar-divider d-none d-sm-block"></div>
 
                         <!-- Nav Item - User Information -->
@@ -74,14 +81,14 @@
                                 aria-labelledby="userDropdown">
                                 <a class="dropdown-item" href="{{ route('personal.profile') }}">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Profile
+                                    {{ __('personal.Profile') }}
                                 </a>
                                 
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="#" onclick="event.preventDefault();
                                 document.getElementById('logout-form').submit();"  data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Logout
+                                    {{ __('personal.logout') }}
                                 </a>
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                     @csrf

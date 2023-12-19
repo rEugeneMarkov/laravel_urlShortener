@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\LinkStoreRequest;
+use App\Http\Requests\LinkUpdateRequest;
 use App\Models\Link;
-use Illuminate\View\View;
-use Illuminate\Http\Request;
-use App\Http\Services\LinkService;
+use App\Services\LinkService;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
 
 class LinkController extends Controller
 {
@@ -22,6 +23,7 @@ class LinkController extends Controller
         $links = Link::where('user_id', '=', auth()->user()->id)
             ->orderBy('id', 'desc')
             ->paginate(10);
+
         return view('personal.link.index', compact('links'));
     }
 
@@ -36,7 +38,7 @@ class LinkController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request): RedirectResponse
+    public function store(LinkStoreRequest $request): RedirectResponse
     {
         $data = $this->service->store($request);
         Link::firstOrCreate($data);
@@ -63,13 +65,11 @@ class LinkController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Link $link): View
+    public function update(LinkUpdateRequest $request, Link $link): View
     {
-        $data = [
-            'title' => $request->title,
-            'link' => $request->link,
-        ];
+        $data = $request->validated();
         $link->update($data);
+
         return view('personal.link.show', compact('link'));
     }
 
@@ -79,6 +79,7 @@ class LinkController extends Controller
     public function destroy(Link $link): RedirectResponse
     {
         $link->delete();
+
         return redirect()->route('personal.link.index');
     }
 
@@ -86,6 +87,7 @@ class LinkController extends Controller
     {
         $transitions = $link->transitions + 1;
         $link->update(['transitions' => $transitions]);
+
         return redirect()->away($link->link);
     }
 }

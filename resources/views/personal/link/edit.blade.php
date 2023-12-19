@@ -10,16 +10,16 @@
                     <div class="form-group w-50">
                         <label class="mt-2">Site title</label>
                         <input type="text" class="form-control" name="title" placeholder="Site title"
-                            value="{{ $link->title }}">
+                            value="{{ old('title') ? old('title') : $link->title }}">
                         @error('title')
-                            <div class="text-danger">Is required</div>
+                            <div class="text-danger">{{ $message }}</div>
                         @enderror
 
                         <label class="mt-2">Link</label>
                         <input type="text" class="form-control" name="link" placeholder="Site link"
-                            value="{{ $link->link }}">
-                        @error('title')
-                            <div class="text-danger">Is required</div>
+                            value="{{ old('link') ? old('link') : $link->link }}">
+                        @error('link')
+                            <div class="text-danger">{{ $message }}</div>
                         @enderror
                     </div>
                     <div class="form-group mt-3">
