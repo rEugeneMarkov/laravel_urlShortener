@@ -11,6 +11,7 @@ class UrlChecker
     {
         try {
             $response = Http::get($url);
+
             return $response->status() == 200;
         } catch (Exception $e) {
             return false;

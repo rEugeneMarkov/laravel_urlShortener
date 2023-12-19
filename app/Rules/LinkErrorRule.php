@@ -2,9 +2,8 @@
 
 namespace App\Rules;
 
-use Closure;
 use App\Http\Helpers\UrlChecker;
-use Illuminate\Contracts\Validation\DataAwareRule;
+use Closure;
 use Illuminate\Contracts\Validation\ValidationRule;
 
 class LinkErrorRule implements ValidationRule
@@ -16,7 +15,7 @@ class LinkErrorRule implements ValidationRule
      */
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
-        if (!UrlChecker::check($value)) {
+        if (! UrlChecker::check($value)) {
             $fail('validation.link_error')->translate([
                 'value' => $value,
             ]);

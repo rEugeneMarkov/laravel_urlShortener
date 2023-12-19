@@ -152,7 +152,6 @@ return [
     'uuid' => 'The :attribute field must be a valid UUID.',
     'link_error' => 'Ваша ссылка (:value) не доступна. Исправьте ссылку.',
 
-
     /*
     |--------------------------------------------------------------------------
     | Custom Validation Language Lines

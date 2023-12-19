@@ -1,6 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\URL;
+use App\Http\Controllers\LinkController;
+use App\Http\Controllers\LocaleController;
+use App\Http\Controllers\PersonalController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -15,34 +17,29 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return redirect()->route('welcome', app()->getLocale());
+Route::middleware('setlocale')->group(function () {
+
+    Route::get('/', function () {
+        return view('welcome');
+    })->name('welcome');
+
+    Auth::routes();
+
+    Route::middleware('auth')
+        ->prefix('personal')
+        ->name('personal.')
+        ->group(function () {
+            Route::get('/', [PersonalController::class, 'index'])->name('index');
+            Route::get('/profile', [PersonalController::class, 'profile'])->name('profile');
+            Route::resource('link', LinkController::class)
+                ->only(['index', 'store', 'create']);
+            Route::middleware('user.has.link')
+                ->group(function () {
+                    Route::resource('link', LinkController::class)
+                        ->except(['index', 'create', 'store']);
+                });
+        });
 });
+Route::get('/{link:back_halve}', [LinkController::class, 'link'])->name('link');
 
-Route::middleware('setlocale')
-    ->prefix('{locale}')
-    ->group(function () {
-
-        Route::get('/', function () {
-            return view('welcome');
-        })->name('welcome');
-
-        Auth::routes();
-
-        Route::middleware('auth')
-            ->prefix('personal')
-            ->name('personal.')
-            ->group(function () {
-                Route::get('/', [App\Http\Controllers\PersonalController::class, 'index'])->name('index');
-                Route::get('/profile', [App\Http\Controllers\PersonalController::class, 'profile'])->name('profile');
-                Route::resource('link', App\Http\Controllers\LinkController::class)
-                    ->only(['index', 'store', 'create']);
-                Route::middleware('user.has.link')
-                    ->group(function () {
-                        Route::resource('link', App\Http\Controllers\LinkController::class)
-                            ->except(['index', 'create', 'store']);
-                    });
-            });
-    });
-Route::get('/{link:back_halve}', [App\Http\Controllers\LinkController::class, 'link'])->name('link');
-Route::post('/locale', [App\Http\Controllers\LocaleController::class, 'change'])->name('locale.update');
+Route::post('/locale', [LocaleController::class, 'change'])->name('locale.update');

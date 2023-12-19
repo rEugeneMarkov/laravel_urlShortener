@@ -32,11 +32,11 @@
                     </li>
                     <li class="nav-item">
                         <a href="{{ route('register') }}"
-                            class="nav-link {{ url()->current() == route('register') ? 'active' : '' }}">{{ __('auth.register') }}</a>
+                            class="nav-link {{ url()->current() == route('register') ? 'active me-2' : '' }}">{{ __('auth.register') }}</a>
                     </li>
                 @else
                     <li class="nav-item"><a href="{{ route('personal.index') }}"
-                            class="nav-link {{ url()->current() == route('personal.index') ? 'active' : '' }}">{{ __('auth.personal') }}</a>
+                            class="nav-link {{ url()->current() == route('personal.index') ? 'active me-2' : '' }}">{{ __('auth.personal') }}</a>
                     </li>
                 @endguest
 

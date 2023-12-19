@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Link;
-use Illuminate\View\View;
-use App\Services\LinkService;
-use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\LinkStoreRequest;
 use App\Http\Requests\LinkUpdateRequest;
+use App\Models\Link;
+use App\Services\LinkService;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
 
 class LinkController extends Controller
 {
@@ -23,6 +23,7 @@ class LinkController extends Controller
         $links = Link::where('user_id', '=', auth()->user()->id)
             ->orderBy('id', 'desc')
             ->paginate(10);
+
         return view('personal.link.index', compact('links'));
     }
 
@@ -37,7 +38,7 @@ class LinkController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(LinkStoreRequest $request, string $locale): RedirectResponse
+    public function store(LinkStoreRequest $request): RedirectResponse
     {
         $data = $this->service->store($request);
         Link::firstOrCreate($data);
@@ -48,7 +49,7 @@ class LinkController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $locale, Link $link): View
+    public function show(Link $link): View
     {
         return view('personal.link.show', compact('link'));
     }
@@ -56,7 +57,7 @@ class LinkController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $locale, Link $link): View
+    public function edit(Link $link): View
     {
         return view('personal.link.edit', compact('link'));
     }
@@ -64,19 +65,21 @@ class LinkController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(LinkUpdateRequest $request, string $locale, Link $link): View
+    public function update(LinkUpdateRequest $request, Link $link): View
     {
         $data = $request->validated();
         $link->update($data);
+
         return view('personal.link.show', compact('link'));
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $locale, Link $link): RedirectResponse
+    public function destroy(Link $link): RedirectResponse
     {
         $link->delete();
+
         return redirect()->route('personal.link.index');
     }
 
@@ -84,6 +87,7 @@ class LinkController extends Controller
     {
         $transitions = $link->transitions + 1;
         $link->update(['transitions' => $transitions]);
+
         return redirect()->away($link->link);
     }
 }

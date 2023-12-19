@@ -10,6 +10,7 @@ class Link extends Model
     use HasFactory;
 
     protected $table = 'links';
+
     protected $guarded = false;
 
     public function user()

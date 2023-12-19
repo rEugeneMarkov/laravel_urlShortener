@@ -81,7 +81,7 @@
                                 aria-labelledby="userDropdown">
                                 <a class="dropdown-item" href="{{ route('personal.profile') }}">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    {{ __('personal.profile') }}
+                                    {{ __('personal.Profile') }}
                                 </a>
                                 
                                 <div class="dropdown-divider"></div>

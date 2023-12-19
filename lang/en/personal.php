@@ -5,6 +5,8 @@ return [
     'show' => 'Show',
     'edit' => 'Edit',
     'delete' => 'Delete',
-    'profile' => 'Profile',
+    'Profile' => 'Profile',
     'logout' => 'Logout',
+    'Name' => 'Name',
+    'profile' => 'profile',
 ];

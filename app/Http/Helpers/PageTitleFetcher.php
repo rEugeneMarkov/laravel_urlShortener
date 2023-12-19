@@ -9,7 +9,7 @@ class PageTitleFetcher
 {
     public static function getTitle($url): ?string
     {
-        if (!UrlChecker::check($url)) {
+        if (! UrlChecker::check($url)) {
             return null;
         }
 
@@ -17,6 +17,7 @@ class PageTitleFetcher
             $response = Http::get($url);
             $html = $response->body();
             preg_match('/<title>([^<]*)<\/title>/', $html, $matches);
+
             return isset($matches[1]) ? $matches[1] : null;
         } catch (Exception $e) {
             return null;
