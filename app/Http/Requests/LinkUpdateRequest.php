@@ -20,10 +20,8 @@ class LinkUpdateRequest extends FormRequest
      *
      * @return array<string, \Illuminate\Contracts\Validation\Rule|array|string>
      */
-    public function rules(): array
+    public function rules(LinkErrorRule $linkError): array
     {
-        $linkError = new LinkErrorRule();
-
         return [
             'title' => ['required', 'string', 'min:5'],
             'link' => ['required', 'url', 'min:10', $linkError],

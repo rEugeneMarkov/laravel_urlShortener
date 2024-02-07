@@ -58,11 +58,10 @@
                         <li class="nav-item no-arrow mx-1">
                             <form class="nav-link" action="{{ route('locale.update') }}" method="POST">
                                 @csrf
-                                <select class="form-select form-select" name="locale" onchange="this.form.submit()">
+                                <select class="form-select form-select-sm" name="locale" onchange="this.form.submit()">
                                     <option value="en" {{ app()->getLocale() == 'en' ? 'selected' : '' }}>English</option>
                                     <option value="ru" {{ app()->getLocale() == 'ru' ? 'selected' : '' }}>Русский</option>
                                 </select>
-                                {{-- <input type="hidden" name="route" value="{{ Route::current() }}"> --}}
                             </form>
                         </li>
                        
@@ -102,7 +101,10 @@
                 <!-- End of Topbar -->
 
                 <!-- Begin Page Content -->
-                @yield('content')
+                <div>
+                    @yield('content')
+                </div>
+                
                 <!-- /.container-fluid -->
 
             </div>
@@ -148,7 +150,7 @@
             </div>
         </div>
     </div>
-
+    
     <!-- Bootstrap core JavaScript-->
     <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
     <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>

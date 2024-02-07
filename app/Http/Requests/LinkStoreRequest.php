@@ -20,10 +20,8 @@ class LinkStoreRequest extends FormRequest
      *
      * @return array<string, \Illuminate\Contracts\Validation\Rule|array|string>
      */
-    public function rules(): array
+    public function rules(LinkErrorRule $linkError): array
     {
-        $linkError = new LinkErrorRule();
-
         return [
             'link' => ['required', 'url', 'min:10', $linkError],
         ];

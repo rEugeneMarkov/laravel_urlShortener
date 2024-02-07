@@ -2,11 +2,11 @@
 
 @section('content')
     <div class="container">
-        <div class="row">
+        <div class="row col-lg-6 card p-3 mx-auto">
             <div class="col-12">
                 <form action="{{ route('personal.link.store') }}" method="POST">
                     @csrf
-                    <div class="form-group w-50">
+                    <div class="form-group">
                         <label class="mb-3 mt-2">Your link</label>
                         <input type="text" class="form-control" name="link" placeholder="Your link"
                             value="{{ old('link') }}">
